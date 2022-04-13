@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { CSSTransitionGroup } from 'react-transition-group';
 import Loader from 'react-loader-advanced';
 
 const Bookshelves = [
@@ -35,19 +36,27 @@ class Bookshelf extends Component {
         const { books, onBookUpdate } = this.props;
         
         return (
-            <ol className="books-grid">
-            {books.map((book) => (
-                <li key={book.id}>
-                    <Loader show={('updating' in book) ? book.updating : false}
-                                    message={<span><img src="loader.svg" width="50" alt=""/><div>Updating</div></span>}>  
+            <ol>
+                <CSSTransitionGroup
+                    transitionName="move-book.animation"
+                    className="books-grid"
+                    transitionEnterTimeout={500}
+                    transitionLeaveTimeout={300}
+                    >
+                    {books.map((book) => (
+                            <li key={book.id}>
                     <div className="book">
-                        <div className="book-top">
+                        <div className="book-top">    
+                            <Loader show={('updating' in book) ? book.updating : false}
+                                            message={<span><img src="loader.svg" width="50" alt=""/><div>Updating</div></span>}>  
+                    
                             <div className="book-cover" style={{
                                 width: 128,
                                 height: 193,
                                 backgroundImage: `url(${book.imageLinks.thumbnail})`
                             }}>
                             </div>
+                            </Loader>
                             <div className="book-shelf-changer">
                                 <select
                                     onChange={(event) => onBookUpdate(book, event.target.value)}
@@ -63,9 +72,9 @@ class Bookshelf extends Component {
                         <div className="book-title">{book.title}</div>
                         <div className="book-authors">{('authors' in book) ? book.authors.join('') : ''}</div>
                     </div>
-                    </Loader>
                 </li>
             ))}
+            </CSSTransitionGroup>
         </ol>
         )
     }
