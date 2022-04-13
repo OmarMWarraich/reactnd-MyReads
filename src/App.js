@@ -3,6 +3,7 @@ import * as BooksAPI from './BooksAPI';
 import Bookshelf, { getBookshelves, getBookshelfName } from './Bookshelf';
 import { Link, Route } from 'react-router-dom';
 import Searchpage from '../Searchpage';
+import sortBy from 'sort-by';
 import './App.css';
 
 
@@ -41,7 +42,7 @@ class BooksApp extends React.Component {
                   <div key={shelf} className="bookshelf">
                     <h2 className="bookshelf-title">{getBookshelfName(shelf)}</h2>
                     <Bookshelf
-                      books={this.state.books.filter((book) => book.shelf === shelf)}
+                      books={this.state.books.filter((book) => book.shelf === shelf).sort(sortBy('title'))}
                       category={shelf}
                       onBookUpdate={this.bookUpdate}
                     />

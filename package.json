@@ -6,8 +6,10 @@
     "prop-types": "^15.8.1",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
+    "react-loader-advanced": "^1.7.1",
     "react-router-dom": "^6.3.0",
-    "react-scripts": "2.1.1"
+    "react-scripts": "2.1.1",
+    "sort-by": "^1.2.0"
   },
   "scripts": {
     "start": "react-scripts start",

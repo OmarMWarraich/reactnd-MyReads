@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import sortBy from 'sort-by';
 import Bookshelf from './Bookshelf';
 import * as BooksAPI from './BooksAPI';
 
@@ -28,6 +29,9 @@ class Searchpage extends Component {
 		this.setState({query: query});
 
 		BooksAPI.search(query).then((books) => {
+
+			if(query !== this.state.query) return;
+
 			if ('error' in books) {
 				books = []
 			}
@@ -38,12 +42,12 @@ class Searchpage extends Component {
 				 */
 				books.map(book => (this.props.shelvesBooks.filter((b) => b.id === book.id).map(b => book.shelf = b.shelf)));
 			}
-			this.setState({books: books});
+			this.setState({books: books.sort(sortBy('title'))});
 		});
 	};
 
 	render() {
-		const onBookUpdate = this.props.onUpdateBook;
+		const onBookUpdate = this.props.onBookUpdate;
 
 		return (
 			<div className="search-books">
