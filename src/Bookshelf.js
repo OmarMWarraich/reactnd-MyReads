@@ -48,7 +48,7 @@ class Bookshelf extends Component {
                             <div className="book-shelf-changer">
                                 <select
                                     onChange={(event) => onBookUpdate(book, event.target.value)}
-                                    value={book.shelf}>
+                                    value={('shelf' in book) ? book.shelf : 'none'}>
                                     <option disabled>Move to...</option>
                                     {getBookshelves().map((shelf) => (
                                         <option key={shelf} value={shelf}>{getBookshelves(shelf)}</option>
@@ -58,7 +58,7 @@ class Bookshelf extends Component {
                             </div>
                         </div>
                         <div className="book-title">{book.title}</div>
-                        <div className="book-authors">{book.authors}</div>
+                        <div className="book-authors">{('authors' in book) ? book.authors.join('') : ''}</div>
                     </div>
                 </li>
             ))}
