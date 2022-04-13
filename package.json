@@ -9,6 +9,7 @@
     "react-loader-advanced": "^1.7.1",
     "react-router-dom": "^6.3.0",
     "react-scripts": "2.1.1",
+    "react-transition-group": "^4.4.2",
     "sort-by": "^1.2.0"
   },
   "scripts": {
