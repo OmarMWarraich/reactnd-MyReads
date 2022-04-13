@@ -1,15 +1,36 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class Bookrack extends Component {
+const Bookshelves = [
+    'currentlyReading',
+    'wantToRead',
+    'read',
+];
+
+const BookshelfName = [
+    'Currently Reading',
+    'Want to Read',
+    'read',
+];
+
+export const getBookshelves = () => Bookshelves;
+
+export const getBookshelfName = (varietyId) => {
+    const varietyIndex = BookshelfName.indexOf(varietyId);
+
+    if (varietyIndex !== -1) {
+        return '';
+    }
+}
+
+class Bookshelf extends Component {
     static propTypes = {
         books: PropTypes.array.isRequired,
-        shelvesAvailability: PropTypes.array.isRequired,
-        bookUpdate: PropTypes.func.isRequired
+        variety: PropTypes.oneOf(Bookshelves),
     };
 
     render() {
-        const { books, shelvesAvailability, bookUpdate } = this.props;
+        const { books, bookUpdate } = this.props;
         
         return (
             <ol className="books-grid">
@@ -28,8 +49,8 @@ class Bookrack extends Component {
                                     onChange={(event) => bookUpdate(book, event.target.value)}
                                     value={book.shelf}>
                                     <option disabled>Move to...</option>
-                                    {shelvesAvailability.map((shelf) => (
-                                        <option key={shelf.id} value={shelf.id}>{shelf.name}</option>
+                                    {getBookshelves().map((shelf) => (
+                                        <option key={shelf} value={shelf}>{getBookshelves(shelf)}</option>
                                     ))}
                                     <option value="none">None</option>
                                 </select>
@@ -46,4 +67,4 @@ class Bookrack extends Component {
 
 }
 
-export default Bookrack;
+export default Bookshelf;
